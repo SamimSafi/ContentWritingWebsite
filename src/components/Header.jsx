@@ -7,6 +7,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from "../firebase.config";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
+import {GiHamburgerMenu} from "react-icons/gi"
 
 const Header = () => {
   const firebaseAuth = getAuth(app);
@@ -17,15 +18,9 @@ const Header = () => {
   const [isMenu, setIsmenu] = useState(false);
 
   const login = async () => {
-    if (!user) {
-      const {
-        user: { refreshToken, providerData },
-      } = await signInWithPopup(firebaseAuth, provider);
-      dispatch({ type: actionType.SET_USER, user: providerData[0] });
-      localStorage.setItem("user", JSON.stringify(providerData[0]));
-    } else {
+   
       setIsmenu(!isMenu);
-    }
+
   };
 
   const logout = () => {
