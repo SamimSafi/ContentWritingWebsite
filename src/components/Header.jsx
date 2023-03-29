@@ -3,17 +3,12 @@ import Logo from "../img/logo.png";
 import { MdAddShoppingCart, MdAdd, MdLogout } from "react-icons/md";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { app } from "../firebase.config";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const Header = () => {
-  const firebaseAuth = getAuth(app);
-  const provider = new GoogleAuthProvider();
 
-  const [{ user, cartShow, cartItems }, dispatch] = useStateValue();
 
   const [isMenu, setIsmenu] = useState(false);
 
@@ -23,12 +18,8 @@ const Header = () => {
 
   const logout = () => {
     setIsmenu(false);
-    localStorage.clear();
-    dispatch({ type: actionType.SET_USER, user: null });
   };
-  const showCart = () => {
-    dispatch({ type: actionType.SET_CART_SHOW, cartShow: !cartShow });
-  };
+
   return (
     <header className="fixed z-50 w-screen  p-3 px-4 md:p-2 md:px-16 bg-blue-900 shadow-md text-white">
       {/* Desktop & Tablet */}
