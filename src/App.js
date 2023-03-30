@@ -33,9 +33,16 @@ const App = () => {
   }, []);
   return (
     <AnimatePresence mode="wait">
-      <div className="w-screen h-auto flex flex-col bg-primary scrollbar-none">
+      {/* <div className="w-screen h-auto flex flex-col bg-primary scrollbar-none"> */}
+      <div className="w-full min-h-screen flex flex-row bg-primary scrollbar-none">
         {/* <Header /> */}
         <Sidebar/>
+        <section className="flex-1 bg-primary">
+left 
+        </section>
+        <section className=" w-96 bg-white  rounded-tl-[70px] overflow-hidden">
+right
+        </section>
         {/* <main className="mt-14 md:mt-20 px-8 md:px-16 py-4 w-full"> */}
         {/* <main className="w-full mt-14 md:mt-20 ">
           <HomeContainer />
