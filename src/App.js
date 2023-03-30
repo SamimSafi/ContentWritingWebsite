@@ -15,6 +15,7 @@ import OurTeam from "./components/OurTeam";
 import AboutUs from "./components/AboutUs";
 import ContactUs from "./components/ContactUs";
 import Footer from "./components/Footer";
+import Sidebar from "./adminPanel/Sidebar/Sidebar";
 
 const App = () => {
   const [{ foodItems }, dispatch] = useStateValue();
@@ -33,10 +34,10 @@ const App = () => {
   return (
     <AnimatePresence mode="wait">
       <div className="w-screen h-auto flex flex-col bg-primary scrollbar-none">
-        <Header />
-
+        {/* <Header /> */}
+        <Sidebar/>
         {/* <main className="mt-14 md:mt-20 px-8 md:px-16 py-4 w-full"> */}
-        <main className="w-full mt-14 md:mt-20 ">
+        {/* <main className="w-full mt-14 md:mt-20 ">
           <HomeContainer />
           <Routes>
             <Route path="/" element={<MainContainer />} />
@@ -46,7 +47,7 @@ const App = () => {
             <Route path="/Contact" element={<ContactUs />} />
           </Routes>
         </main>
-        <Footer />
+        <Footer /> */}
       </div>
     </AnimatePresence>
   );
