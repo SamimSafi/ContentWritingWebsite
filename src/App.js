@@ -14,6 +14,8 @@ import Sidebar from './adminPanel/Sidebar/Sidebar';
 
 import ContentRight from './adminPanel/Contents/ContentRight';
 import ContentLeft from './adminPanel/Contents/ContentLeft';
+import AdminContactUs from './adminPanel/Sidebar/AdminContactUs';
+import AdminServices from './adminPanel/Sidebar/AdminServices';
 
 const App = () => {
   const [{ foodItems }, dispatch] = useStateValue();
@@ -36,12 +38,21 @@ const App = () => {
         {/* <Header /> */}
         <Sidebar />
         <section className="flex-1 bg-primary">
-          <ContentLeft />
+        <main className="w-full mt-14 md:mt-20 ml-16">
+        <Routes>
+            
+            <Route path="/AdminContact" element={<AdminContactUs />} />
+            <Route path="/AdminServices" element={<AdminServices />} />
+          </Routes></main>
         </section>
-        <ContentRight />
+        
+        {/* <ContentRight /> */}
+        
         {/* <main className="mt-14 md:mt-20 px-8 md:px-16 py-4 w-full"> */}
-        {/* <main className="w-full mt-14 md:mt-20 ">
-          <HomeContainer />
+        {/* <main className="w-full mt-14 md:mt-20 "> */}
+          {/* <HomeContainer /> */}
+        {/* </main> */}
+        {/* <Footer /> */}
           <Routes>
             <Route path="/" element={<MainContainer />} />
             <Route path="/Services" element={<CardServices />} />
@@ -49,8 +60,6 @@ const App = () => {
             <Route path="/About" element={<AboutUs />} />
             <Route path="/Contact" element={<ContactUs />} />
           </Routes>
-        </main>
-        <Footer /> */}
       </div>
     </AnimatePresence>
   );

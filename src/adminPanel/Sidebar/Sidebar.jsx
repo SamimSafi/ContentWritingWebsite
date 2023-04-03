@@ -2,6 +2,7 @@ import React from 'react'
 import logo from '../../img/logo.png';
 import {BiHomeAlt,BiGridAlt,BiCard,BiUser,BiCalculator} from 'react-icons/bi';
 import {IoMdSettings} from 'react-icons/io';
+import { Link } from 'react-router-dom';
 function Sidebar() {
     const menu=[
         {name:"Home",icon:<BiHomeAlt/>},
@@ -28,13 +29,16 @@ function Sidebar() {
 
             {
                 menu.map((val,index)=>(
-                    <li key={index} className="mb-7 flex flex-row items-center text-gray-400">
+                    <Link to={"/AdminServices"}>
+                    
+                    <li key={index}  className="mb-7 flex flex-row items-center text-gray-400">
                         <div className='mr-4'>{val.icon}</div>
                         <div>
 
                          {val.name}
                         </div>
                          </li>
+                    </Link>
                 ))
             }
             </ul>
