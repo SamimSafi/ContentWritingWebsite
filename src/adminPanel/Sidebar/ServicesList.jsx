@@ -5,6 +5,7 @@ import AdminServices from './AdminServices';
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 function ServicesList() {
   const [showModel, setShowModel] = useState(false);
   const [services, setServices] = useState([]);
@@ -91,7 +92,9 @@ function ServicesList() {
                   </td>
                   <td class="px-6 py-4">{res.title}</td>
                   <td class="px-6 py-4">{res.description}</td>
+                  <Link to={`/Update/${res.id}`}>
                   <td class="px-6 py-4">
+                   
                     <a
                       href="#"
                       class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
@@ -99,6 +102,7 @@ function ServicesList() {
                       Edit
                     </a>
                   </td>
+                  </Link>
                 </tr>
               ))}
           </tbody>
