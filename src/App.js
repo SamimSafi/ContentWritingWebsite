@@ -11,13 +11,17 @@ import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import Footer from './components/Footer';
 import Sidebar from './adminPanel/Sidebar/Sidebar';
-
+import AdminContactUs from './adminPanel/Sidebar/Slider/SliderForm';
 import ContentRight from './adminPanel/Contents/ContentRight';
 import ContentLeft from './adminPanel/Contents/ContentLeft';
-import AdminContactUs from './adminPanel/Sidebar/AdminContactUs';
-import AdminServices from './adminPanel/Sidebar/AdminServices';
-import ServicesList from './adminPanel/Sidebar/ServicesList';
-import UpdateServices from './adminPanel/Sidebar/UpdateServices';
+import ServicesList from './adminPanel/Sidebar/services/ServicesList';
+import UpdateServices from './adminPanel/Sidebar/services/UpdateServices';
+import SliderList from './adminPanel/Sidebar/Slider/SliderList';
+import SliderUpdate from './adminPanel/Sidebar/Slider/SliderUpdate';
+import SocialMediaList from './adminPanel/Sidebar/SocialMedia/SocialMediaList';
+import SocialMediaUpdate from './adminPanel/Sidebar/SocialMedia/SocialMediaUpdate';
+import TeamList from './adminPanel/Sidebar/Team/TeamList';
+import TeamUpdate from './adminPanel/Sidebar/Team/TeamUpdate';
 
 const App = () => {
   const [{ foodItems }, dispatch] = useStateValue();
@@ -46,6 +50,12 @@ const App = () => {
               <Route path="/AdminContact" element={<AdminContactUs />} />
               <Route path="/AdminServices" element={<ServicesList />} />
               <Route path="/Update/:id" element={<UpdateServices />} />
+              <Route path="/SliderList" element={<SliderList />} />
+              <Route path="/UpdateSlider/:id" element={<SliderUpdate />} />
+              <Route path="/SocialMediaList" element={<SocialMediaList />} />
+              <Route path="/UpdateSocialMedia/:id" element={<SocialMediaUpdate />} />
+              <Route path="/TeamList" element={<TeamList />} />
+              <Route path="/UpdateTeam/:id" element={<TeamUpdate />} />
               <Route path="/Dashboard" element={<ContentLeft />} />
             </Routes>
           </main>

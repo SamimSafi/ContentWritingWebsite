@@ -9,13 +9,13 @@ function Sidebar() {
     { name: 'Services', icon: <BiGridAlt />, route: '/AdminServices' },
     { name: 'Contac tUs', icon: <BiCard />, route: '/AdminContact' },
     { name: 'About Us', icon: <BiUser />, route: '' },
-    { name: 'Team', icon: <BiCalculator />, route: '' },
-    { name: 'Social Media', icon: <IoMdSettings />, route: '' },
+    { name: 'Team', icon: <BiCalculator />, route: '/TeamList' },
+    { name: 'Social Media', icon: <IoMdSettings />, route: '/SocialMediaList' },
     { name: 'Header', icon: <IoMdSettings />, route: '' },
     { name: 'Inquieries', icon: <IoMdSettings />, route: '' },
     { name: 'Header', icon: <IoMdSettings />, route: '' },
     { name: 'Footer', icon: <IoMdSettings />, route: '' },
-    { name: 'Slider', icon: <IoMdSettings />, route: '' },
+    { name: 'Slider', icon: <IoMdSettings />, route: '/SliderList' },
   ];
   return (
     <div className="h-screen border-r border-r-gray-200 w-64 px-9 py-9 space-y-8">
