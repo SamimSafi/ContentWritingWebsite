@@ -12,7 +12,7 @@ function ServicesList() {
 
   const deleteServices = (id) => {
     axios
-      .delete('http://localhost:8081/deleteServices/' + id)
+      .delete('https://te.elam.international/deleteServices/' + id)
       .then((res) => {
         console.log(res.data);
       })
@@ -25,7 +25,7 @@ function ServicesList() {
   };
   const loadServices = () => {
     axios
-      .get('http://localhost:8081/getServices')
+      .get('https://te.elam.international/getServices')
       .then((res) => setServices(res.data))
       .catch((err) => console.log(err));
   };
@@ -104,7 +104,7 @@ function ServicesList() {
                   >
                     <img
                       className="w-12 h-12 rounded-full object-cover"
-                      src={'http://localhost:8081/' + res.image}
+                      src={'https://te.elam.international/' + res.image}
                     ></img>
                   </td>
                   <td class="px-6 py-4">{res.title}</td>

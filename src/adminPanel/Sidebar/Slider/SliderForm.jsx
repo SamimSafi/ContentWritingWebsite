@@ -24,7 +24,7 @@ function SliderForm({ loadSlider, setShowModel }) {
       formData.append('title', title);
       formData.append('image', file);
 
-      const response = await axios.post('http://localhost:8081/Slider', formData);
+      const response = await axios.post('https://te.elam.international/Slider', formData);
       console.log(response.data);
     } catch (error) {
       console.log(error);

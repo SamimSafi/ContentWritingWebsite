@@ -13,7 +13,7 @@ function SliderList() {
 
   const deleteSlider = (id) => {
     axios
-      .delete('http://localhost:8081/deleteSlider/' + id)
+      .delete('https://te.elam.international/deleteSlider/' + id)
       .then((res) => {
         console.log(res.data);
       })
@@ -26,7 +26,7 @@ function SliderList() {
   };
   const loadSlider = () => {
     axios
-      .get('http://localhost:8081/getSlider')
+      .get('https://te.elam.international/getSlider')
       .then((res) => setSliders(res.data))
       .catch((err) => console.log(err));
   };
@@ -102,7 +102,7 @@ function SliderList() {
                   >
                     <img
                       className="w-12 h-12 rounded-full object-cover"
-                      src={'http://localhost:8081/' + res.image}
+                      src={'https://te.elam.international/' + res.image}
                     ></img>
                   </td>
                   <td class="px-6 py-4">{res.title}</td>

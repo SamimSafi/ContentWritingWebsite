@@ -30,7 +30,7 @@ function AdminServices({ loadServices, setShowModel }) {
       formData.append('description', description);
       formData.append('image', file);
 
-      const response = await axios.post('http://localhost:8081/Services', formData);
+      const response = await axios.post('https://te.elam.international/Services', formData);
       console.log(response.data);
     } catch (error) {
       console.log(error);

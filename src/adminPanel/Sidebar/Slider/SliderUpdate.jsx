@@ -14,12 +14,12 @@ function SliderUpdate() {
   useEffect(() => {
     // Fetch the existing record data from the API
     axios
-      .get(`http://localhost:8081/getSliderById/${id}`)
+      .get(`https://te.elam.international/getSliderById/${id}`)
       .then((response) => {
         setTitle(response.data.title);
 
         axios
-          .get('http://localhost:8081/' + response.data.image, {
+          .get('https://te.elam.international/' + response.data.image, {
             responseType: 'blob',
             headers: {
               'Access-Control-Allow-Origin': '*',
@@ -52,7 +52,7 @@ function SliderUpdate() {
       formData.append('title', title);
       formData.append('image', file);
       console.log(id);
-      const response = await axios.put(`http://localhost:8081/updateSlider/` + id, formData);
+      const response = await axios.put(`https://te.elam.international/updateSlider/` + id, formData);
       console.log(response.data);
     } catch (error) {
       console.log(error);

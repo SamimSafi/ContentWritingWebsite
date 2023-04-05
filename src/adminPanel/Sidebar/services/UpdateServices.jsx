@@ -15,13 +15,13 @@ function UpdateServices() {
   useEffect(() => {
     // Fetch the existing record data from the API
     axios
-      .get(`http://localhost:8081/getSevicesById/${id}`)
+      .get(`https://te.elam.international/getSevicesById/${id}`)
       .then((response) => {
         setTitle(response.data.title);
         setDescription(response.data.description);
 
         axios
-          .get('http://localhost:8081/' + response.data.image, {
+          .get('https://te.elam.international/' + response.data.image, {
             responseType: 'blob',
             headers: {
               'Access-Control-Allow-Origin': '*',
@@ -59,7 +59,7 @@ function UpdateServices() {
       formData.append('description', description);
       formData.append('image', file);
       console.log(id);
-      const response = await axios.put(`http://localhost:8081/updateServices/` + id, formData);
+      const response = await axios.put(`https://te.elam.international/updateServices/` + id, formData);
       console.log(response.data);
     } catch (error) {
       console.log(error);
