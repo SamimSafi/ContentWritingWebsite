@@ -1,18 +1,36 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
-import Model from './Model';
-import AdminServices from './AdminServices';
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import AdminServices from './AdminServices';
+import Model from '../Model';
 function ServicesList() {
   const [showModel, setShowModel] = useState(false);
   const [services, setServices] = useState([]);
-  useEffect(() => {
+
+  const deleteServices = (id) => {
+    axios
+      .delete('http://localhost:8081/deleteServices/' + id)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        loadServices();
+      });
+  };
+  const loadServices = () => {
     axios
       .get('http://localhost:8081/getServices')
       .then((res) => setServices(res.data))
       .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    loadServices();
   }, []);
 
   return (
@@ -91,12 +109,22 @@ function ServicesList() {
                   </td>
                   <td class="px-6 py-4">{res.title}</td>
                   <td class="px-6 py-4">{res.description}</td>
+
                   <td class="px-6 py-4">
+                    <Link to={`/Update/${res.id}`}>
+                      <a
+                        href="#"
+                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        Edit
+                      </a>
+                    </Link>
                     <a
+                      onClick={() => deleteServices(res.id)}
                       href="#"
-                      class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      class="font-medium ml-2 text-blue-600 dark:text-blue-500 hover:underline"
                     >
-                      Edit
+                      Delete
                     </a>
                   </td>
                 </tr>
@@ -106,7 +134,7 @@ function ServicesList() {
       </div>
       {showModel === true && (
         <Model setShowModel={setShowModel}>
-          <AdminServices />
+          <AdminServices loadServices={loadServices} setShowModel={setShowModel} />
         </Model>
       )}
     </>
