@@ -3,24 +3,25 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../../Constaints/baseUrl';
-function SliderUpdate() {
-  const [title, setTitle] = useState('');
+function HeaderUpdate() {
+  const [company, setCompany] = useState('');
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
+  const handleCompanyChange = (event) => {
+    setCompany(event.target.value);
   };
   const navigate = useNavigate();
+
   useEffect(() => {
     // Fetch the existing record data from the API
     axios
-      .get(baseUrl + `/getSliderById/${id}`)
+      .get(baseUrl + `/getHeaderId/${id}`)
       .then((response) => {
-        setTitle(response.data.title);
+        setCompany(response.data.company);
 
         axios
-          .get(baseUrl + '/' + response.data.image, {
+          .get(baseUrl + '/' + response.data.logo, {
             responseType: 'blob',
             headers: {
               'Access-Control-Allow-Origin': '*',
@@ -50,16 +51,15 @@ function SliderUpdate() {
 
     try {
       const formData = new FormData();
-      formData.append('title', title);
+      formData.append('company', company);
       formData.append('image', file);
-      console.log(id);
-      const response = await axios.put(baseUrl + `/updateSlider/` + id, formData);
+      const response = await axios.put(baseUrl + `/updateHeader/` + id, formData);
       console.log(response.data);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
-      navigate('/SliderList');
+      navigate('/HeaderList');
     }
   };
 
@@ -68,15 +68,15 @@ function SliderUpdate() {
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Update Slider</h1>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div style={{ marginBottom: '1rem' }}>
-          <label htmlFor="title" style={{ display: 'block', marginBottom: '0.5rem' }}>
-            Title
+          <label htmlFor="Company" style={{ display: 'block', marginBottom: '0.5rem' }}>
+            Company
           </label>
           <input
             type="text"
             id="title"
-            name="title"
-            value={title}
-            onChange={handleTitleChange}
+            name="company"
+            value={company}
+            onChange={handleCompanyChange}
             style={{
               border: '1px solid #D1D5DB',
               borderRadius: '0.25rem',
@@ -88,7 +88,7 @@ function SliderUpdate() {
 
         <div style={{ marginBottom: '1rem' }}>
           <label htmlFor="file" style={{ display: 'block', marginBottom: '0.5rem' }}>
-            Image
+            Logo
           </label>
           <input
             type="file"
@@ -116,4 +116,4 @@ function SliderUpdate() {
   );
 }
 
-export default SliderUpdate;
+export default HeaderUpdate;

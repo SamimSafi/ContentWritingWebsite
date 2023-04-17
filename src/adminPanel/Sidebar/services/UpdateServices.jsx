@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-
+import { useNavigate } from 'react-router-dom';
+import { baseUrl } from '../../Constaints/baseUrl';
 function UpdateServices() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -11,17 +12,17 @@ function UpdateServices() {
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
-
+  const navigate = useNavigate();
   useEffect(() => {
     // Fetch the existing record data from the API
     axios
-      .get(`http://localhost:8081/getSevicesById/${id}`)
+      .get(baseUrl + `/getSevicesById/${id}`)
       .then((response) => {
         setTitle(response.data.title);
         setDescription(response.data.description);
 
         axios
-          .get('http://localhost:8081/' + response.data.image, {
+          .get(baseUrl + '/' + response.data.image, {
             responseType: 'blob',
             headers: {
               'Access-Control-Allow-Origin': '*',
@@ -59,12 +60,13 @@ function UpdateServices() {
       formData.append('description', description);
       formData.append('image', file);
       console.log(id);
-      const response = await axios.put(`http://localhost:8081/updateServices/` + id, formData);
+      const response = await axios.put(baseUrl + `/updateServices/` + id, formData);
       console.log(response.data);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
+      navigate('/AdminServices');
     }
   };
 

@@ -5,13 +5,14 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Model from '../Model';
 import TeamForm from './TeamForm';
+import { baseUrl } from '../../Constaints/baseUrl';
 function TeamList() {
   const [showModel, setShowModel] = useState(false);
   const [team, setTeam] = useState([]);
 
   const deleteTeam = (id) => {
     axios
-      .delete('http://localhost:8081/deleteTeam/' + id)
+      .delete(baseUrl + '/deleteTeam/' + id)
       .then((res) => {
         console.log(res.data);
       })
@@ -24,7 +25,7 @@ function TeamList() {
   };
   const loadTeam = () => {
     axios
-      .get('http://localhost:8081/getTeam')
+      .get(baseUrl + '/getTeam')
       .then((res) => setTeam(res.data))
       .catch((err) => console.log(err));
   };
@@ -100,7 +101,7 @@ function TeamList() {
                   >
                     <img
                       className="w-12 h-12 rounded-full object-cover"
-                      src={'http://localhost:8081/' + res.image}
+                      src={baseUrl + '/' + res.image}
                     ></img>
                   </td>
                   <td class="px-6 py-4">{res.name}</td>

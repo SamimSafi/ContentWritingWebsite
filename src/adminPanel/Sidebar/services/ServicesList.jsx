@@ -6,13 +6,14 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AdminServices from './AdminServices';
 import Model from '../Model';
+import { baseUrl } from '../../Constaints/baseUrl';
 function ServicesList() {
   const [showModel, setShowModel] = useState(false);
   const [services, setServices] = useState([]);
 
   const deleteServices = (id) => {
     axios
-      .delete('http://localhost:8081/deleteServices/' + id)
+      .delete(baseUrl + '/deleteServices/' + id)
       .then((res) => {
         console.log(res.data);
       })
@@ -25,7 +26,7 @@ function ServicesList() {
   };
   const loadServices = () => {
     axios
-      .get('http://localhost:8081/getServices')
+      .get(baseUrl + '/getServices')
       .then((res) => setServices(res.data))
       .catch((err) => console.log(err));
   };
@@ -104,7 +105,7 @@ function ServicesList() {
                   >
                     <img
                       className="w-12 h-12 rounded-full object-cover"
-                      src={'http://localhost:8081/' + res.image}
+                      src={baseUrl + '/' + res.image}
                     ></img>
                   </td>
                   <td class="px-6 py-4">{res.title}</td>

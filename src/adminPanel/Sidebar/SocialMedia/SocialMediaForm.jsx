@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Bars } from 'react-loader-spinner';
+import { baseUrl } from '../../Constaints/baseUrl';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { IconPicker } from 'react-fa-icon-picker'
 
 function SocialMediaForm({ loadSocialMedia, setShowModel }) {
-  const [title, setTitle] = useState('');
-  const [file, setFile] = useState(null);
+  const [name, setName] = useState('');
   const [url, setUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+  const [icon, setIcon] = useState("");
+ 
+  //Get all the Font Awesome icons
+  const handleNameChange = (event) => {
+    setName(event.target.value);
   };
 
   const handleUrlChange = (event) => {
@@ -24,12 +24,7 @@ function SocialMediaForm({ loadSocialMedia, setShowModel }) {
     setLoading(true);
 
     try {
-      const formData = new FormData();
-      formData.append('name', title);
-      formData.append('image', file);
-      formData.append('url', url);
-
-      const response = await axios.post('http://localhost:8081/socialMedia', formData);
+      const response = await axios.post(baseUrl + '/socialMedia', {icon,name,url});
       console.log(response.data);
     } catch (error) {
       console.log(error);
@@ -53,8 +48,8 @@ function SocialMediaForm({ loadSocialMedia, setShowModel }) {
               type="text"
               id="title"
               name="name"
-              value={title}
-              onChange={handleTitleChange}
+              value={name}
+              onChange={handleNameChange}
               style={{
                 border: '1px solid #D1D5DB',
                 borderRadius: '0.25rem',
@@ -85,15 +80,21 @@ function SocialMediaForm({ loadSocialMedia, setShowModel }) {
 
           <div style={{ marginBottom: '1rem' }}>
             <label htmlFor="file" style={{ display: 'block', marginBottom: '0.5rem' }}>
-              Image
+              Icon
             </label>
             <input
-              type="file"
-              id="file"
-              name="image"
-              onChange={handleFileChange}
-              style={{ border: '1px solid #D1D5DB', borderRadius: '0.25rem', padding: '0.5rem' }}
+              type="text"
+              id="title"
+              name="icon"
+              value={icon}
+              style={{
+                border: '1px solid #D1D5DB',
+                borderRadius: '0.25rem',
+                padding: '0.5rem',
+                width: '100%',
+              }}
             />
+            <IconPicker value={icon} onChange={(v) => setIcon(v)} />
           </div>
           <button
             type="submit"

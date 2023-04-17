@@ -5,16 +5,15 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Model from '../Model';
-import SocialMediaForm from './SocialMediaForm';
+import FooterForm from './FooterForm';
 import { baseUrl } from '../../Constaints/baseUrl';
-import { IconPickerItem } from 'react-fa-icon-picker'
-function SocialMediaList() {
+function FooterList() {
   const [showModel, setShowModel] = useState(false);
-  const [socialMedia, setsocialMedia] = useState([]);
+  const [footer, setFooter] = useState([]);
 
-  const deleteSocialMedia = (id) => {
+  const deleteFooter = (id) => {
     axios
-      .delete(baseUrl + '/deletesocialMedia/' + id)
+      .delete(baseUrl + '/deleteFooter/' + id)
       .then((res) => {
         console.log(res.data);
       })
@@ -22,17 +21,17 @@ function SocialMediaList() {
         console.log(err);
       })
       .finally(() => {
-        loadSocialMedia();
+        loadFooter();
       });
   };
-  const loadSocialMedia = () => {
+  const loadFooter = () => {
     axios
-      .get(baseUrl + '/getSocialMedia')
-      .then((res) => setsocialMedia(res.data))
+      .get(baseUrl + '/getFooter')
+      .then((res) => setFooter(res.data))
       .catch((err) => console.log(err));
   };
   useEffect(() => {
-    loadSocialMedia();
+    loadFooter();
   }, []);
 
   return (
@@ -82,10 +81,16 @@ function SocialMediaList() {
                 ID
               </th>
               <th scope="col" class="px-6 py-3">
-                Icon
+                Company
               </th>
               <th scope="col" class="px-6 py-3">
-                Name
+                Address
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Email
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Phone
               </th>
               <th scope="col" class="px-6 py-3">
                 Action
@@ -93,20 +98,18 @@ function SocialMediaList() {
             </tr>
           </thead>
           <tbody>
-            {socialMedia &&
-              socialMedia.map((res) => (
+            {footer &&
+              footer.map((res) => (
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <td class="px-6 py-4">{res.id}</td>
-                  <td
-                    scope="row"
-                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                     <IconPickerItem icon={res.icon} size={24} color="#000" />
-                  </td>
-                  <td class="px-6 py-4">{res.name}</td>
+
+                  <td class="px-6 py-4">{res.company}</td>
+                  <td class="px-6 py-4">{res.address}</td>
+                  <td class="px-6 py-4">{res.email}</td>
+                  <td class="px-6 py-4">{res.phone}</td>
 
                   <td class="px-6 py-4">
-                    <Link to={`/UpdateSocialMedia/${res.id}`}>
+                    <Link to={`/UpdateFooter/${res.id}`}>
                       <a
                         href="#"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
@@ -115,7 +118,7 @@ function SocialMediaList() {
                       </a>
                     </Link>
                     <a
-                      onClick={() => deleteSocialMedia(res.id)}
+                      onClick={() => deleteFooter(res.id)}
                       href="#"
                       class="font-medium ml-2 text-blue-600 dark:text-blue-500 hover:underline"
                     >
@@ -129,11 +132,11 @@ function SocialMediaList() {
       </div>
       {showModel === true && (
         <Model setShowModel={setShowModel}>
-          <SocialMediaForm loadSocialMedia={loadSocialMedia} setShowModel={setShowModel} />
+          <FooterForm loadFooter={loadFooter} setShowModel={setShowModel} />
         </Model>
       )}
     </>
   );
 }
 
-export default SocialMediaList;
+export default FooterList;

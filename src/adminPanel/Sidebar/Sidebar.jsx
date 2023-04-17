@@ -8,13 +8,12 @@ function Sidebar() {
     { name: 'Dashboard', icon: <BiHomeAlt />, route: '/Dashboard' },
     { name: 'Services', icon: <BiGridAlt />, route: '/AdminServices' },
     { name: 'Contac tUs', icon: <BiCard />, route: '/AdminContact' },
-    { name: 'About Us', icon: <BiUser />, route: '' },
+    { name: 'About Us', icon: <BiUser />, route: '/AboutUsList' },
     { name: 'Team', icon: <BiCalculator />, route: '/TeamList' },
     { name: 'Social Media', icon: <IoMdSettings />, route: '/SocialMediaList' },
-    { name: 'Header', icon: <IoMdSettings />, route: '' },
-    { name: 'Inquieries', icon: <IoMdSettings />, route: '' },
-    { name: 'Header', icon: <IoMdSettings />, route: '' },
-    { name: 'Footer', icon: <IoMdSettings />, route: '' },
+    { name: 'Inquieries', icon: <IoMdSettings />, route: '/Dashboard' },
+    { name: 'Header', icon: <IoMdSettings />, route: '/HeaderList' },
+    { name: 'Footer', icon: <IoMdSettings />, route: '/FooterList' },
     { name: 'Slider', icon: <IoMdSettings />, route: '/SliderList' },
   ];
   return (

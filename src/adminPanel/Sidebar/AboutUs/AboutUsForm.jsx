@@ -3,13 +3,18 @@ import axios from 'axios';
 import { Bars } from 'react-loader-spinner';
 import { baseUrl } from '../../Constaints/baseUrl';
 
-function SliderForm({ loadSlider, setShowModel }) {
+function AboutUsForm({ loadAboutUs, setShowModel }) {
   const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
+  };
+
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
   };
 
   const handleFileChange = (event) => {
@@ -23,14 +28,15 @@ function SliderForm({ loadSlider, setShowModel }) {
     try {
       const formData = new FormData();
       formData.append('title', title);
+      formData.append('description', description);
       formData.append('image', file);
 
-      const response = await axios.post(baseUrl + '/Slider', formData);
+      const response = await axios.post(baseUrl + '/AboutUs', formData);
       console.log(response.data);
     } catch (error) {
       console.log(error);
     } finally {
-      loadSlider();
+      loadAboutUs();
       setLoading(false);
       setShowModel();
     }
@@ -38,7 +44,7 @@ function SliderForm({ loadSlider, setShowModel }) {
 
   return (
     <div style={{ maxWidth: '600px', margin: '0 auto' }} className="flex items-center flex-col">
-      <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Add Slider</h1>
+      <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Add About us</h1>
       {loading === false ? (
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div style={{ marginBottom: '1rem' }}>
@@ -59,7 +65,23 @@ function SliderForm({ loadSlider, setShowModel }) {
               }}
             />
           </div>
-
+          <div style={{ marginBottom: '1rem' }}>
+            <label htmlFor="description" style={{ display: 'block', marginBottom: '0.5rem' }}>
+              Description
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              value={description}
+              onChange={handleDescriptionChange}
+              style={{
+                border: '1px solid #D1D5DB',
+                borderRadius: '0.25rem',
+                padding: '0.5rem',
+                width: '100%',
+              }}
+            />
+          </div>
           <div style={{ marginBottom: '1rem' }}>
             <label htmlFor="file" style={{ display: 'block', marginBottom: '0.5rem' }}>
               Image
@@ -101,4 +123,4 @@ function SliderForm({ loadSlider, setShowModel }) {
   );
 }
 
-export default SliderForm;
+export default AboutUsForm;

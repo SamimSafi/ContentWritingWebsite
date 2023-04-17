@@ -5,16 +5,15 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Model from '../Model';
-import SocialMediaForm from './SocialMediaForm';
+import AboutUsForm from './AboutUsForm';
 import { baseUrl } from '../../Constaints/baseUrl';
-import { IconPickerItem } from 'react-fa-icon-picker'
-function SocialMediaList() {
+function AboutUsList() {
   const [showModel, setShowModel] = useState(false);
-  const [socialMedia, setsocialMedia] = useState([]);
+  const [aboutUs, setAboutUs] = useState([]);
 
-  const deleteSocialMedia = (id) => {
+  const deleteAboutUs = (id) => {
     axios
-      .delete(baseUrl + '/deletesocialMedia/' + id)
+      .delete(baseUrl + '/deleteAboutUs/' + id)
       .then((res) => {
         console.log(res.data);
       })
@@ -22,17 +21,17 @@ function SocialMediaList() {
         console.log(err);
       })
       .finally(() => {
-        loadSocialMedia();
+        loadAboutUs();
       });
   };
-  const loadSocialMedia = () => {
+  const loadAboutUs = () => {
     axios
-      .get(baseUrl + '/getSocialMedia')
-      .then((res) => setsocialMedia(res.data))
+      .get(baseUrl + '/getAboutUs')
+      .then((res) => setAboutUs(res.data))
       .catch((err) => console.log(err));
   };
   useEffect(() => {
-    loadSocialMedia();
+    loadAboutUs();
   }, []);
 
   return (
@@ -82,10 +81,13 @@ function SocialMediaList() {
                 ID
               </th>
               <th scope="col" class="px-6 py-3">
-                Icon
+                Image
               </th>
               <th scope="col" class="px-6 py-3">
-                Name
+                Title
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Description
               </th>
               <th scope="col" class="px-6 py-3">
                 Action
@@ -93,20 +95,24 @@ function SocialMediaList() {
             </tr>
           </thead>
           <tbody>
-            {socialMedia &&
-              socialMedia.map((res) => (
+            {aboutUs &&
+              aboutUs.map((res) => (
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <td class="px-6 py-4">{res.id}</td>
                   <td
                     scope="row"
                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                     <IconPickerItem icon={res.icon} size={24} color="#000" />
+                    <img
+                      className="w-12 h-12 rounded-full object-cover"
+                      src={baseUrl + '/' + res.image}
+                    ></img>
                   </td>
-                  <td class="px-6 py-4">{res.name}</td>
+                  <td class="px-6 py-4">{res.title}</td>
+                  <td class="px-6 py-4">{res.description}</td>
 
                   <td class="px-6 py-4">
-                    <Link to={`/UpdateSocialMedia/${res.id}`}>
+                    <Link to={`/UpdateAboutUs/${res.id}`}>
                       <a
                         href="#"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
@@ -115,7 +121,7 @@ function SocialMediaList() {
                       </a>
                     </Link>
                     <a
-                      onClick={() => deleteSocialMedia(res.id)}
+                      onClick={() => deleteAboutUs(res.id)}
                       href="#"
                       class="font-medium ml-2 text-blue-600 dark:text-blue-500 hover:underline"
                     >
@@ -129,11 +135,11 @@ function SocialMediaList() {
       </div>
       {showModel === true && (
         <Model setShowModel={setShowModel}>
-          <SocialMediaForm loadSocialMedia={loadSocialMedia} setShowModel={setShowModel} />
+          <AboutUsForm loadAboutUs={loadAboutUs} setShowModel={setShowModel} />
         </Model>
       )}
     </>
   );
 }
 
-export default SocialMediaList;
+export default AboutUsList;
