@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-
+import { useNavigate } from 'react-router-dom';
+import { baseUrl } from '../../Constaints/baseUrl';
 function TeamUpdate() {
   const [name, setName] = useState('');
   const [position, setPosition] = useState('');
@@ -19,18 +20,19 @@ function TeamUpdate() {
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
   };
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch the existing record data from the API
     axios
-      .get(`http://localhost:8081/getTeamId/${id}`)
+      .get(baseUrl + `/getTeamId/${id}`)
       .then((response) => {
         setName(response.data.name);
         setPosition(response.data.position);
         setDescription(response.data.description);
 
         axios
-          .get('http://localhost:8081/' + response.data.image, {
+          .get(baseUrl + response.data.image, {
             responseType: 'blob',
             headers: {
               'Access-Control-Allow-Origin': '*',
@@ -64,12 +66,13 @@ function TeamUpdate() {
       formData.append('position', position);
       formData.append('description', description);
       formData.append('image', file);
-      const response = await axios.put(`http://localhost:8081/updateTeam/` + id, formData);
+      const response = await axios.put(baseUrl + `/updateTeam/` + id, formData);
       console.log(response.data);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
+      navigate('/TeamList');
     }
   };
 
@@ -106,6 +109,24 @@ function TeamUpdate() {
             name="position"
             value={position}
             onChange={handlePositionChange}
+            style={{
+              border: '1px solid #D1D5DB',
+              borderRadius: '0.25rem',
+              padding: '0.5rem',
+              width: '100%',
+            }}
+          />
+        </div>
+        <div style={{ marginBottom: '1rem' }}>
+          <label htmlFor="Description" style={{ display: 'block', marginBottom: '0.5rem' }}>
+            Description
+          </label>
+          <input
+            type="text"
+            id="title"
+            name="description"
+            value={description}
+            onChange={handleDescriptionChange}
             style={{
               border: '1px solid #D1D5DB',
               borderRadius: '0.25rem',

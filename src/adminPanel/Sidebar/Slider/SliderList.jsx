@@ -7,13 +7,14 @@ import { Link } from 'react-router-dom';
 import AdminServices from './SliderForm';
 import Model from '../Model';
 import SliderForm from './SliderForm';
+import { baseUrl } from '../../Constaints/baseUrl';
 function SliderList() {
   const [showModel, setShowModel] = useState(false);
   const [sliders, setSliders] = useState([]);
 
   const deleteSlider = (id) => {
     axios
-      .delete('https://te.elam.international/deleteSlider/' + id)
+      .delete(baseUrl + '/deleteSlider/' + id)
       .then((res) => {
         console.log(res.data);
       })
@@ -26,7 +27,7 @@ function SliderList() {
   };
   const loadSlider = () => {
     axios
-      .get('https://te.elam.international/getSlider')
+      .get(baseUrl + '/getSlider')
       .then((res) => setSliders(res.data))
       .catch((err) => console.log(err));
   };
@@ -102,7 +103,7 @@ function SliderList() {
                   >
                     <img
                       className="w-12 h-12 rounded-full object-cover"
-                      src={'https://te.elam.international/' + res.image}
+                      src={baseUrl + '/' + res.image}
                     ></img>
                   </td>
                   <td class="px-6 py-4">{res.title}</td>

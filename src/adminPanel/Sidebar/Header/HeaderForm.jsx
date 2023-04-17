@@ -3,13 +3,13 @@ import axios from 'axios';
 import { Bars } from 'react-loader-spinner';
 import { baseUrl } from '../../Constaints/baseUrl';
 
-function SliderForm({ loadSlider, setShowModel }) {
-  const [title, setTitle] = useState('');
+function HeaderForm({ loadHeader, setShowModel }) {
+  const [company, setCompany] = useState('');
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
+  const handleCompanyChange = (event) => {
+    setCompany(event.target.value);
   };
 
   const handleFileChange = (event) => {
@@ -22,15 +22,15 @@ function SliderForm({ loadSlider, setShowModel }) {
 
     try {
       const formData = new FormData();
-      formData.append('title', title);
+      formData.append('company', company);
       formData.append('image', file);
 
-      const response = await axios.post(baseUrl + '/Slider', formData);
+      const response = await axios.post(baseUrl + '/header', formData);
       console.log(response.data);
     } catch (error) {
       console.log(error);
     } finally {
-      loadSlider();
+      loadHeader();
       setLoading(false);
       setShowModel();
     }
@@ -42,15 +42,15 @@ function SliderForm({ loadSlider, setShowModel }) {
       {loading === false ? (
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div style={{ marginBottom: '1rem' }}>
-            <label htmlFor="title" style={{ display: 'block', marginBottom: '0.5rem' }}>
-              Title
+            <label htmlFor="Company" style={{ display: 'block', marginBottom: '0.5rem' }}>
+              Company
             </label>
             <input
               type="text"
               id="title"
-              name="title"
-              value={title}
-              onChange={handleTitleChange}
+              name="company"
+              value={company}
+              onChange={handleCompanyChange}
               style={{
                 border: '1px solid #D1D5DB',
                 borderRadius: '0.25rem',
@@ -101,4 +101,4 @@ function SliderForm({ loadSlider, setShowModel }) {
   );
 }
 
-export default SliderForm;
+export default HeaderForm;

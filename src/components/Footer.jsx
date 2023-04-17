@@ -1,21 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {BiChevronRight} from "react-icons/bi"
+import { IconPickerItem } from 'react-fa-icon-picker'
+import axios from "axios";
+import { baseUrl } from "../adminPanel/Constaints/baseUrl";
 function Footer() {
+  const [social, setSocial] = useState([]);
+  const [footer, setFooter] = useState([]);
+  const loadSocial = () => {
+
+    axios
+    .get(baseUrl + '/getFooterRec')
+    .then((res) => setFooter(res.data))
+    .catch((err) => console.log(err));
+      axios
+      .get(baseUrl + '/getSocialMedia')
+      .then((res) => setSocial(res.data))
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    loadSocial();
+  }, []);
   return (
     <footer className="w-full mt-10">
       <div className="p-10 bg-gray-800 text-gray-200">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
             <div className="mb-5">
-              <h2 className="text-2xl pb-4">Company</h2>
+              <h2 className="text-2xl pb-4">{footer.length > 0 && footer[0].company}</h2>
               <div className="mb-5">
                 <p className="text-gray-500">
-                  A123 Lost straigh Chandigar, PB 243223 Kabul <br />
+                {footer.length > 0 && footer[0].address}<br />
                   <br />
-                  <strong>Phone :</strong> +93 787349769
-                  <br />
-                  <strong>Email :</strong> Samim@gmail.com
-                  <br />
+                  <div className="flex space-x-4 text-lg">
+            {social.length > 0 && social.map((res)=>(
+                <a href="#">
+                <i><IconPickerItem icon={res.icon} size={24} color="white" /></i>
+              </a>
+            ))}
+        
+          </div>
                 </p>
               </div>
             </div>

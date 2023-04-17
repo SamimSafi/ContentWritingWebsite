@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../img/logo.png";
 import { MdAddShoppingCart, MdAdd, MdLogout } from "react-icons/md";
 import { motion } from "framer-motion";
@@ -6,9 +6,21 @@ import { Link } from "react-router-dom";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { baseUrl } from "../adminPanel/Constaints/baseUrl";
+import axios from "axios";
 
 const Header = () => {
+  const [header, setHeader] = useState([]);
 
+  const loadHeader = () => {
+    axios
+      .get(baseUrl + '/getHeader')
+      .then((res) => setHeader(res.data))
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    loadHeader();
+  }, []);
 
   const [isMenu, setIsmenu] = useState(false);
 
@@ -24,10 +36,16 @@ const Header = () => {
     <header className="fixed z-50 w-screen  p-3 px-4 md:p-2 md:px-16 bg-blue-900 shadow-md text-white">
       {/* Desktop & Tablet */}
       <div className="hidden md:flex w-full items-center justify-between">
-        <Link to={"/"} className="flex items-center gap-2">
-          <img src={Logo} className="w-2/12 object-cover" alt="logo" />
-          <p className="text-white text-xl font-bold">Elam International</p>
-        </Link>
+      {header.length > 0 ? ( <Link to={"/"} className="flex items-center gap-2">
+      
+      <img src={baseUrl+'/' + header[0].logo} className="w-2/12 object-cover" alt="logo" />
+      <p className="text-white text-xl font-bold">{header[0].company}</p>
+    </Link>):( <Link to={"/"} className="flex items-center gap-2">
+      
+      <img src={Logo} className="w-2/12 object-cover" alt="logo" />
+      <p className="text-white text-xl font-bold">Elam International</p>
+    </Link>)}
+       
         <div className="flex items-center gap-8 ">
           <motion.ul
             initial={{ opacity: 0, x: 200 }}

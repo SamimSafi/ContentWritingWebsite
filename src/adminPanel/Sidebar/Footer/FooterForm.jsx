@@ -3,27 +3,24 @@ import axios from 'axios';
 import { Bars } from 'react-loader-spinner';
 import { baseUrl } from '../../Constaints/baseUrl';
 
-function TeamForm({ loadTeam, setShowModel }) {
-  const [name, setName] = useState('');
-  const [file, setFile] = useState(null);
-  const [position, setPosition] = useState('');
-  const [description, setDescription] = useState('');
+function FooterForm({ loadFooter, setShowModel }) {
+  const [company, setCompany] = useState('');
+  const [address, setAddress] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
+  const handleCompanyChange = (event) => {
+    setCompany(event.target.value);
   };
-
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+  const handleAddressChange = (event) => {
+    setAddress(event.target.value);
   };
-
-  const handlePositionChange = (event) => {
-    setPosition(event.target.value);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
-
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
+  const handlePhoneChange = (event) => {
+    setPhone(event.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -31,18 +28,17 @@ function TeamForm({ loadTeam, setShowModel }) {
     setLoading(true);
 
     try {
-      const formData = new FormData();
-      formData.append('name', name);
-      formData.append('image', file);
-      formData.append('position', position);
-      formData.append('description', description);
-
-      const response = await axios.post(baseUrl + '/team', formData);
+      const response = await axios.post(baseUrl + '/footer', {
+        company,
+        address,
+        email,
+        phone,
+      });
       console.log(response.data);
     } catch (error) {
       console.log(error);
     } finally {
-      loadTeam();
+      loadFooter();
       setLoading(false);
       setShowModel();
     }
@@ -52,17 +48,17 @@ function TeamForm({ loadTeam, setShowModel }) {
     <div style={{ maxWidth: '600px', margin: '0 auto' }} className="flex items-center flex-col">
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Add Slider</h1>
       {loading === false ? (
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '1rem' }}>
-            <label htmlFor="Name" style={{ display: 'block', marginBottom: '0.5rem' }}>
-              Name
+            <label htmlFor="Company" style={{ display: 'block', marginBottom: '0.5rem' }}>
+              Company
             </label>
             <input
               type="text"
               id="title"
-              name="name"
-              value={name}
-              onChange={handleNameChange}
+              name="company"
+              value={company}
+              onChange={handleCompanyChange}
               style={{
                 border: '1px solid #D1D5DB',
                 borderRadius: '0.25rem',
@@ -73,15 +69,15 @@ function TeamForm({ loadTeam, setShowModel }) {
           </div>
 
           <div style={{ marginBottom: '1rem' }}>
-            <label htmlFor="Position" style={{ display: 'block', marginBottom: '0.5rem' }}>
-              Position
+            <label htmlFor="Address" style={{ display: 'block', marginBottom: '0.5rem' }}>
+              Address
             </label>
             <input
               type="text"
               id="title"
-              name="position"
-              value={position}
-              onChange={handlePositionChange}
+              name="address"
+              value={address}
+              onChange={handleAddressChange}
               style={{
                 border: '1px solid #D1D5DB',
                 borderRadius: '0.25rem',
@@ -90,17 +86,16 @@ function TeamForm({ loadTeam, setShowModel }) {
               }}
             />
           </div>
-
           <div style={{ marginBottom: '1rem' }}>
-            <label htmlFor="Description" style={{ display: 'block', marginBottom: '0.5rem' }}>
-              Description
+            <label htmlFor="Email" style={{ display: 'block', marginBottom: '0.5rem' }}>
+              Email
             </label>
             <input
               type="text"
               id="title"
-              name="description"
-              value={description}
-              onChange={handleDescriptionChange}
+              name="email"
+              value={email}
+              onChange={handleEmailChange}
               style={{
                 border: '1px solid #D1D5DB',
                 borderRadius: '0.25rem',
@@ -109,17 +104,22 @@ function TeamForm({ loadTeam, setShowModel }) {
               }}
             />
           </div>
-
           <div style={{ marginBottom: '1rem' }}>
-            <label htmlFor="file" style={{ display: 'block', marginBottom: '0.5rem' }}>
-              Image
+            <label htmlFor="Phone" style={{ display: 'block', marginBottom: '0.5rem' }}>
+              Phone
             </label>
             <input
-              type="file"
-              id="file"
-              name="image"
-              onChange={handleFileChange}
-              style={{ border: '1px solid #D1D5DB', borderRadius: '0.25rem', padding: '0.5rem' }}
+              type="text"
+              id="title"
+              name="phone"
+              value={phone}
+              onChange={handlePhoneChange}
+              style={{
+                border: '1px solid #D1D5DB',
+                borderRadius: '0.25rem',
+                padding: '0.5rem',
+                width: '100%',
+              }}
             />
           </div>
           <button
@@ -151,4 +151,4 @@ function TeamForm({ loadTeam, setShowModel }) {
   );
 }
 
-export default TeamForm;
+export default FooterForm;
